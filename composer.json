@@ -1,0 +1,26 @@
+{
+    "name": "Hasty2",
+    "authors": [
+        {
+            "name": "Lauri Orgla",
+            "email": "TheOrX@hotmail.com",
+            "homepage": "http://www.lauri.guru",
+            "role": "Lead Developer"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hasty2\\": "src/Hasty2/"
+        },
+        "classmap": [
+            "application/"
+        ]
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}
