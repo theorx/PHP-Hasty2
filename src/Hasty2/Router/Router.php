@@ -24,7 +24,7 @@ class Router {
             $controller = new $className;
             //check if loaded class is controller
 
-            if (is_a($controller, 'App\Controller\ControllerBase')) {
+            if (is_a($controller, 'Hasty2\Controller\ControllerBase')) {
                 if (method_exists($controller, $requestPathDto->getMethod())) {
                     //Implement cache here
                     $reflector = new \ReflectionClass($controller);
@@ -39,7 +39,7 @@ class Router {
                         if ($param->getClass()) {
                             $paramClassName = $param->getClass()->name;
                             $parameterObject = new $paramClassName();
-                            if (is_a($parameterObject, 'App\DTO\InputDTO')) {
+                            if (is_a($parameterObject, 'Hasty2\DTO\InputDTO')) {
                                 $parameterObject->populate($input);
                             }
                             $callParams[] = $parameterObject;
