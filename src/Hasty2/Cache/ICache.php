@@ -32,5 +32,19 @@ interface ICache {
      */
     public function delete($key);
 
+    /**
+     * @param          $key
+     * @param callable $closure
+     * @param          $ttl
+     *
+     * @return mixed
+     */
+    public function SGClosure($key, \closure $closure, $ttl);
+
+    /**
+     * @return mixed
+     */
+    public function lastStatus();
+
 
 }

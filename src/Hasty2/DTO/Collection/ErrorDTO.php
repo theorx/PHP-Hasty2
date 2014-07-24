@@ -6,8 +6,28 @@ use Hasty2\DTO\DTOBase;
 
 class ErrorDTO extends DTOBase {
 
+    public $exceptionName;
+
+
     public $code;
     public $message;
+
+    /**
+     * @param mixed $exceptionName
+     */
+    public function setExceptionName($exceptionName) {
+
+        $this->exceptionName = $exceptionName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExceptionName() {
+
+        return $this->exceptionName;
+    }
+
 
     /**
      * @param mixed $code

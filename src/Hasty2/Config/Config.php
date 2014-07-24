@@ -8,13 +8,14 @@ class Config {
 
     /**
      * @param null $key
+     * @param null $default
      *
      * @return null
      * @throws \Exception
      */
-    public static function get($key = null) {
+    public static function get($key = null, $default = null) {
 
-        if (!self::$_configuration) {
+        if (!self::$_configuration && $default != null) {
             throw new \Exception('Configuration is not loaded.');
         } else {
             if ($key == null) {
@@ -24,11 +25,16 @@ class Config {
                     if (array_key_exists($key, self::$_configuration)) {
                         return self::$_configuration[$key];
                     } else {
-                        throw new \Exception(sprintf('Configuration parameter: %s is missing.', $key));
+                        if ($default == null) {
+                            throw new \Exception(sprintf('Configuration parameter: %s is missing.', $key));
+                        } else {
+                            return $default;
+                        }
                     }
                 }
             }
         }
+        return $default;
     }
 
     /**

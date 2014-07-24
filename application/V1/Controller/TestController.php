@@ -6,7 +6,14 @@ class TestController extends \Hasty2\Controller\ControllerBase {
 
     public function TestAction(\V1\DTO\Input\InputDTO $input, \V1\DTO\Output\OutputDTO $output) {
 
-        return $input;
+
+        //Do Some Work
+
+        usleep(500000);
+
+        $output->populate(['apiToken' => '1234', 'validUntil' => time()]);
+
+        return $output;
 
     }
 

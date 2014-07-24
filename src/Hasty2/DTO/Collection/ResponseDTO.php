@@ -19,7 +19,7 @@ class ResponseDTO extends \Hasty2\DTO\DTOBase {
     }
 
     /**
-     * @return mixed
+     * @return ApiDTO
      */
     public function getApi() {
 
