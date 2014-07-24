@@ -18,12 +18,10 @@ class UserModel extends \Hasty2\Model\ModelBase {
 
     }
 
-    public function getUsersLike($name){
+    public function getUsersLimited($limit){
+        $repository = new \V1\Repository\User();
 
-        $qb = $this->em->createQueryBuilder();
-
-
-
+        return $repository->getUsersLimited($limit);
     }
 
 }

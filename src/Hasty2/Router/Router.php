@@ -4,6 +4,8 @@
 namespace Hasty2\Router;
 
 use Hasty2\DTO\Collection\RequestPathDTO;
+use Hasty2\Cache\Cache;
+use Hasty2\Config\Config;
 
 class Router {
 
@@ -13,6 +15,7 @@ class Router {
      *
      * @return mixed
      * @throws \Hasty2\Exception\InvalidPathException
+     * @throws \Hasty2\Exception\InvalidControllerException
      * @throws \Hasty2\Exception\InvalidMethodException
      */
     public function route($path, $input) {
@@ -20,24 +23,58 @@ class Router {
         $requestPathDto = $this->parsePath($path);
 
         if (class_exists($requestPathDto->getClassPath())) {
-            $className = $requestPathDto->getClassPath();
+            $className  = $requestPathDto->getClassPath();
             $controller = new $className;
             //check if loaded class is controller
 
             if (is_a($controller, 'Hasty2\Controller\ControllerBase')) {
                 if (method_exists($controller, $requestPathDto->getMethod())) {
-                    //Implement cache here
-                    $reflector = new \ReflectionClass($controller);
 
-                    //Get the parameters of a method
+                    $parameters = Cache::getInstance()->get($requestPathDto->getClassPath());
 
-                    $parameters = $reflector->getMethod($requestPathDto->getMethod())->getParameters();
+                    if ($parameters == false) {
+
+                        $reflector  = new \ReflectionClass($controller);
+                        $parameters = $reflector->getMethod($requestPathDto->getMethod())->getParameters();
+
+                        $parsedParams = [];
+                        foreach ($parameters as $key => $value) {
+                            $parsedParams[] = [
+                                'object'     => is_object(($value->getClass())),
+                                'class_name' => is_object(($value->getClass())) ? $value->getClass()->name : '',
+                                'name'       => $value->getName()
+                            ];
+                        }
+                        $parameters = $parsedParams;
+
+                        Cache::getInstance()->store($requestPathDto->getClassPath(), $parameters, 6);
+                    }
+
                     $callParams = [];
+                    foreach ($parameters as $param) {
 
+                        if ($param['object']) {
+                            $paramClassName  = $param['class_name'];
+                            $parameterObject = new $paramClassName();
+                            if (is_a($parameterObject, 'Hasty2\DTO\InputDTO')) {
+                                $parameterObject->populate($input);
+                            }
+                            $callParams[] = $parameterObject;
+                        } else {
+
+                            if (isset($param, $input, $input[$param['name']])) {
+
+                                $callParams[] = $input[$param['name']];
+                            } else {
+                                $callParams[] = "";
+                            }
+                        }
+                    }
+                    /*
                     foreach ($parameters as $param) {
 
                         if ($param->getClass()) {
-                            $paramClassName = $param->getClass()->name;
+                            $paramClassName  = $param->getClass()->name;
                             $parameterObject = new $paramClassName();
                             if (is_a($parameterObject, 'Hasty2\DTO\InputDTO')) {
                                 $parameterObject->populate($input);
@@ -46,12 +83,14 @@ class Router {
                         } else {
 
                             if (isset($param, $input, $input[$param->getName()])) {
-                                $callParams[] = $input[$param];
+
+                                $callParams[] = $input[$param->getName()];
                             } else {
                                 $callParams[] = "";
                             }
                         }
                     }
+*/
 
                     return call_user_func_array([$controller, $requestPathDto->getMethod()], $callParams);
                 } else {

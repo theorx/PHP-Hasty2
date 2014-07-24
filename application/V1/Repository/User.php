@@ -18,4 +18,15 @@ class User extends \Hasty2\Model\ModelBase {
 
     }
 
+    public function getUsersLimited($limit) {
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->add('select', 'u')->add('from', '\Hasty2\Entities\User u')->add('orderBy', 'u.name ASC')->setMaxResults(
+            (int)$limit
+        );
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 }

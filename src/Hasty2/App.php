@@ -61,6 +61,7 @@ class App {
                     isset($params['cacheTtl']) ? intval($params['cacheTtl']) : 0
                 )
             );
+
             $api = $responseDTO->getApi();
             $api->setCache(Cache::getInstance()->lastStatus());
             $outputFormatter->setInput($responseDTO);

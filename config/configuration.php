@@ -3,17 +3,17 @@
  * Returns configuration
  */
 return [
-    'mysql'          => [
+    'mysql'                      => [
         'driver'   => 'pdo_mysql',
         'host'     => 'localhost',
         'user'     => 'root',
         'password' => '',
         'dbname'   => 'test'
     ],
-    'paths'          => [
+    'paths'                      => [
         'entities' => __DIR__ . '/../application/Entities'
     ],
-    'cache_settings' => [
+    'cache_settings'             => [
         'mysql_cache'    => [
             'host'     => '',
             'user'     => '',
@@ -33,5 +33,8 @@ return [
         ],
         'cache_provider' => 'disk',
         'cache_enabled'  => true
+    ],
+    'application_cache_settings' => [
+        'controller_parameter_hinting' => 120
     ]
 ];

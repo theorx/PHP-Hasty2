@@ -9,11 +9,20 @@ class TestController extends \Hasty2\Controller\ControllerBase {
 
         //Do Some Work
 
-        usleep(500000);
+      //  usleep(500000);
 
         $output->populate(['apiToken' => '1234', 'validUntil' => time()]);
 
         return $output;
+
+    }
+
+    public function loginAction(\V1\DTO\Input\TestValidatingInputDTO $input, $limit) {
+
+
+        $model = new \V1\Model\UserModel();
+
+        return $input;
 
     }
 
