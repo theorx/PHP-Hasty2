@@ -18,7 +18,7 @@ class UserModel extends \Hasty2\Model\ModelBase {
 
     }
 
-    public function getUsersLimited($limit){
+    public function getUsersLimited($limit) {
         $repository = new \V1\Repository\User();
 
         return $repository->getUsersLimited($limit);

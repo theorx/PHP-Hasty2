@@ -23,7 +23,7 @@ return [
         'memcache_cache' => [
             'servers' => [
                 [
-                    'host' => '',
+                    'host' => '123',
                     'port' => ''
                 ]
             ]

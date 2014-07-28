@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = new Hasty2\App();
+
 $app->initialize();
 
 

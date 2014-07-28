@@ -10,7 +10,10 @@ use Hasty2\DTO\Collection\ResponseDTO;
 use Hasty2\Formatter\OutputFormatter;
 use Hasty2\Cache\Cache;
 
-
+/**
+ * Class App
+ * @package Hasty2
+ */
 class App {
 
     public function __construct() {

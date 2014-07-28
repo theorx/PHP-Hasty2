@@ -2,8 +2,15 @@
 
 namespace Hasty2\DTO;
 
+/**
+ * Class DTOBase
+ * @package Hasty2\DTO
+ */
 class DTOBase {
 
+    /**
+     * @param array $input
+     */
     public function __construct(array $input = null) {
 
         if ($input != null) {
@@ -11,11 +18,17 @@ class DTOBase {
         }
     }
 
+    /**
+     * @return array
+     */
     public function toArray() {
 
         return get_object_vars($this);
     }
 
+    /**
+     * @param array $input
+     */
     public function populate(array $input) {
 
         $vars = $this->toArray();

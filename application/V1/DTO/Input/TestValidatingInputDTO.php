@@ -1,21 +1,31 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: lauri
- * Date: 7/15/14
- * Time: 4:24 PM
- */
 namespace V1\DTO\Input;
 
 use \V1\Validator\TestValidator;
 
+/**
+ * Class TestValidatingInputDTO
+ * @package V1\DTO\Input
+ */
 class TestValidatingInputDTO extends \Hasty2\DTO\InputDTO {
 
 
+    /**
+     * @var
+     */
     public $username;
+    /**
+     * @var
+     */
     public $age;
+    /**
+     * @var
+     */
     public $email;
+    /**
+     * @var
+     */
     public $active;
 
     /**

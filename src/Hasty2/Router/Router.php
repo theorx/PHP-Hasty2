@@ -19,7 +19,7 @@ class Router {
      * @throws \Hasty2\Exception\InvalidMethodException
      */
     public function route($path, $input) {
-
+        //Get parse
         $requestPathDto = $this->parsePath($path);
 
         if (class_exists($requestPathDto->getClassPath())) {
@@ -30,7 +30,7 @@ class Router {
             if (is_a($controller, 'Hasty2\Controller\ControllerBase')) {
                 if (method_exists($controller, $requestPathDto->getMethod())) {
 
-                    $parameters = Cache::getInstance()->get($requestPathDto->getClassPath());
+                    $parameters = Cache::getInstance()->get($requestPathDto->getClassPath() . $requestPathDto->getMethod());
 
                     if ($parameters == false) {
 
@@ -47,7 +47,14 @@ class Router {
                         }
                         $parameters = $parsedParams;
 
-                        Cache::getInstance()->store($requestPathDto->getClassPath(), $parameters, 6);
+                        $config = Config::get('application_cache_settings');
+                        if (isset($config['controller_parameter_hinting']) && (int)$config['controller_parameter_hinting'] > 0) {
+                            $ttl = (int)$config['controller_parameter_hinting'];
+                        } else {
+                            $ttl = 30;
+                        }
+
+                        Cache::getInstance()->store($requestPathDto->getClassPath(), $parameters, $ttl);
                     }
 
                     $callParams = [];
@@ -70,6 +77,7 @@ class Router {
                             }
                         }
                     }
+
                     /*
                     foreach ($parameters as $param) {
 

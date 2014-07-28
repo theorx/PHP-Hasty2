@@ -34,6 +34,7 @@ class Config {
                 }
             }
         }
+
         return $default;
     }
 
