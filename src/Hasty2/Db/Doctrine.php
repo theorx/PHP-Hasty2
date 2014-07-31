@@ -6,16 +6,32 @@ use \Doctrine\ORM\Tools\Setup;
 use \Doctrine\ORM\Configuration;
 
 
+/**
+ * Class Doctrine
+ * @package Hasty2\Db
+ */
 class Doctrine {
 
+    /**
+     * @var self
+     */
     private static $_instance;
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
     private $_entityManager;
 
+    /**
+     *
+     */
     private function __construct() {
         $configuration = include(__DIR__ . '/../../../config/configuration.php');
         \Hasty2\Config\Config::load($configuration);
     }
 
+    /**
+     * @return Doctrine
+     */
     public static function getInstance() {
 
         if (!self::$_instance) {
@@ -26,6 +42,9 @@ class Doctrine {
         return self::$_instance;
     }
 
+    /**
+     *
+     */
     private function setup() {
 
         $config       = Setup::createAnnotationMetadataConfiguration(

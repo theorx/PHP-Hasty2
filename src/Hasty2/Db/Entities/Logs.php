@@ -18,18 +18,18 @@ class Logs extends EntityBase {
     public $id = null;
 
     /**
-     * @Column(type="datetime")
-     * @var \DateTime
+     * @Column(type="string")
+     * @var
      */
     public $time = null;
 
-    /** @Column(type="varchar", columnDefinition="ENUM('debug', 'error', 'info', 'warning)") */
+    /** @Column(type="string") */
     public $type = null;
 
-    /** @Column(type="string") */
+    /** @Column(type="text") */
     public $message = null;
 
-    /** @Column(type="string") */
+    /** @Column(type="text") */
     public $context_data = null;
 
     /**

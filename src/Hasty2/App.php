@@ -9,6 +9,7 @@ use Hasty2\Router\Router;
 use Hasty2\DTO\Collection\ResponseDTO;
 use Hasty2\Formatter\OutputFormatter;
 use Hasty2\Cache\Cache;
+use Hasty2\Log\Logger;
 
 /**
  * Class App
@@ -94,6 +95,7 @@ class App {
             $responseDTO->setError(
                 new ErrorDTO(['message' => $e->getMessage(), 'code' => $e->getCode(), 'exceptionName' => get_class($e)])
             );
+            Logger::log(Logger::INFO, "Exception", json_encode($responseDTO));
             //Overwrites the output with new exception.
             $outputFormatter->setInput($responseDTO);
         } finally {

@@ -23,6 +23,7 @@ class Logger {
         $record->setContextData($context_data);
         $record->setMessage($message);
         $record->setType($type);
+        $record->setTime(time());
         $record->save();
     }
 
