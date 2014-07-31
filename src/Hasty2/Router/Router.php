@@ -78,28 +78,6 @@ class Router {
                         }
                     }
 
-                    /*
-                    foreach ($parameters as $param) {
-
-                        if ($param->getClass()) {
-                            $paramClassName  = $param->getClass()->name;
-                            $parameterObject = new $paramClassName();
-                            if (is_a($parameterObject, 'Hasty2\DTO\InputDTO')) {
-                                $parameterObject->populate($input);
-                            }
-                            $callParams[] = $parameterObject;
-                        } else {
-
-                            if (isset($param, $input, $input[$param->getName()])) {
-
-                                $callParams[] = $input[$param->getName()];
-                            } else {
-                                $callParams[] = "";
-                            }
-                        }
-                    }
-*/
-
                     return call_user_func_array([$controller, $requestPathDto->getMethod()], $callParams);
                 } else {
                     throw new \Hasty2\Exception\InvalidMethodException;

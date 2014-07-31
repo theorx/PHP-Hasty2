@@ -28,8 +28,9 @@ class Doctrine {
 
     private function setup() {
 
-        $config = Setup::createAnnotationMetadataConfiguration(
-            [\Hasty2\Config\Config::get('paths')['entities']],
+        $config       = Setup::createAnnotationMetadataConfiguration(
+            [\Hasty2\Config\Config::get('paths')['entities'],
+                __DIR__ . '/Entities/'],
             \Hasty2\Env::isDev()
         );
         $mysql_config = \Hasty2\Config\Config::get('mysql');
@@ -37,6 +38,9 @@ class Doctrine {
         $this->_entityManager = EntityManager::create($mysql_config, $config);
     }
 
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
     public function getEntityManager() {
 
         return $this->_entityManager;

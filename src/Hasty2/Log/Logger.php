@@ -2,24 +2,28 @@
 
 namespace Hasty2\Log;
 
+use \Hasty2\Db\Entities\Logs;
+
 class Logger {
 
-    const DEBUG = 'debug';
-    const ERROR = 'error';
-    const INFO = 'info';
+    const DEBUG   = 'debug';
+    const ERROR   = 'error';
+    const INFO    = 'info';
     const WARNING = 'warning';
 
     /**
      * @param $type
      * @param $message
-     * @param $queryId
+     * @param $context_data
      */
-    public static function log($type, $message, $queryId) {
+    public static function log($type, $message, $context_data) {
 
-        //log it somewhere somehow
-        //limit log message length
-        //escape log message
-        //use queryId for logging also
+        $record = new Logs();
+
+        $record->setContextData($context_data);
+        $record->setMessage($message);
+        $record->setType($type);
+        $record->save();
     }
 
 }

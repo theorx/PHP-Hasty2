@@ -101,7 +101,7 @@ class App {
 
             //Update response time after processing the request.
             $api            = $responseDTO->getApi();
-            $api->queryTime = Log\Timer::getSeconds('request');
+            $api->queryTime = Log\Timer::getMilliSeconds('request') . " Ms";
             $responseDTO->setApi($api);
 
             //Return output
